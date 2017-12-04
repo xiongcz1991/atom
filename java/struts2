@@ -54,3 +54,48 @@ public class HelloWorldAction extends ActionSupport {
         </action>
     </package>
 </struts>
+
+第二章 struts标签
+url
+<p><a href="<s:url action='hello'/>">Hello World</a></p>
+property
+<s:property value="messageStore.message"/>
+
+
+第三章 Action
+继承ActionSupport
+重写execute()方法
+
+数据传输
+前端到后端：通过set方法
+后端到前端：同过Action的get方法
+package com.xiongcz.basestruts.action;
+
+import com.opensymphony.xwork2.ActionSupport;
+import com.xiongcz.basestruts.model.MessageStore;
+
+public class FromAction extends ActionSupport {
+    MessageStore messageStore;
+    String username;
+    @Override
+    public String execute() throws Exception {
+        messageStore = new MessageStore();
+        if ("joker".equals(username)){
+            messageStore.setMessage(messageStore.getMessage()+" "+username);
+        }
+
+        return SUCCESS;
+    }
+
+    public MessageStore getMessageStore() {
+        return messageStore;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+}
