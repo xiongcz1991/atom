@@ -10,3 +10,40 @@
   *
   *
   */
+
+二、 java数据类型
+java是一种强类型的程序设计语言，这就以为着必须为每一给变量声明一种数据类型
+8中基础类型
+  byte  一个字节
+  short 两个字节
+  int   四个字节
+  long  八个字节
+
+  float 四个字节
+  double八个字节
+
+  char
+  boolean
+
+常量：java中使用final修饰的就是常量，常量只能赋值一次，java中习惯用大写来表示常量
+
+运算符
+  =、-、*、/      加减乘除
+  -=、+=         自加自减
+
+
+数学函数与常量
+  Math.sqrt(x)  平方根
+
+  Math.sin()
+  Math.cos()
+  Math.tan()
+  Math.atan()
+  Math.atan2()
+
+  Math.exp()
+  Math.log()
+  Math.log10()
+
+  Math.PI
+  Math.E
