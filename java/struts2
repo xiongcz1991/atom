@@ -1,0 +1,35 @@
+第一章 HelloWorld
+step1
+添加依赖
+struts2-core
+step2
+添加struts2过滤器
+<filter>
+    <filter-name>struts2</filter-name>
+    <filter-class>org.apache.struts2.dispatcher.filter.StrutsPrepareAndExecuteFilter</filter-class>
+</filter>
+
+<filter-mapping>
+    <filter-name>struts2</filter-name>
+    <url-pattern>/*</url-pattern>
+</filter-mapping>
+
+step3
+添加struts.xml
+位置 根类路径
+<struts>
+    <constant name="struts.devMode" value="true" />
+
+    <package name="basicstruts2" extends="struts-default">
+        <!--构建struts框架-->
+        <action name="index">
+            <result>/index.jsp</result>
+        </action>
+        <!--s使用Action类-->
+        <action name="hello"
+                class="com.xiongcz.basestruts.action.HelloWorldAction"
+                method="execute">
+            <result name="success">/helloWorld.jsp</result>
+        </action>
+    </package>
+</struts>
