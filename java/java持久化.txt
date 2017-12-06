@@ -67,14 +67,15 @@
           }
       }
     }
+
   >>3. 连接方式
-    DriverManager方式
+  3.1 DriverManager方式
     public static Connection getConnection() throws SQLException {
       conn = DriverManager.getConnection(url, username, password);
       return conn;
     }
 
-    DataSource方式
+  3.2 DataSource方式
     使用mysql厂商提供的MysqlDatasource
     public class DataSourceConnection {
       static Logger log = Logger.getLogger(DataSourceConnection.class);
@@ -124,9 +125,9 @@
       }
     }
 
-    使用c3p0
+  3.3 使用c3p0
 
-    使用DBCP
+  3.4 使用DBCP
 
 
   >数据库增删改查
