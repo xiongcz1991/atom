@@ -99,3 +99,7 @@ public class FromAction extends ActionSupport {
         this.username = username;
     }
 }
+
+注意：表单回显时Action属性为对象时，对象不能在execute中创建。
+
+第四章 表单校验

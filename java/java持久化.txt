@@ -1,0 +1,133 @@
+第一章 java JDBC
+学习目标
+  >连接数据库
+  >>1. 导包
+    maven方式
+    <dependency>
+      <groupId>mysql</groupId>
+      <artifactId>mysql-connector-java</artifactId>
+      <version>5.1.17</version>
+    </dependency>
+
+  >>2. 连接步骤
+    package com.xiongcz.jdbc.connection;
+    import org.apache.log4j.Logger;
+    import java.sql.Connection;
+    import java.sql.DriverManager;
+    import java.sql.SQLException;
+    import java.sql.Statement;
+    public class MysqlConnection {
+      static Logger log = Logger.getLogger(MysqlConnection.class);
+
+      //使用jcbc连接mysql
+      public static void main (String[] args){
+          Connection connection=null;
+          Statement statement=null;
+
+          try {
+              //1. 注册驱动
+              Class.forName("com.mysql.jdbc.Driver");
+
+              //2. 获取数据库连接
+              connection = DriverManager.getConnection(
+                      "jdbc:mysql://localhost:3306/stc",
+                      "root",
+                      "mysql"
+              );
+
+              //3. 创建会话
+              statement = connection.createStatement();
+
+              //4. 执行数据库操作
+              statement.execute("CREATE TABLE students (id INT ,name CHARACTER )");
+
+          } catch (ClassNotFoundException e) {
+              log.error("jdbc drivier not found");
+              e.printStackTrace();
+          }catch (SQLException e) {
+              log.error("数据库连接失败"+e.getMessage());
+              e.printStackTrace();
+          }finally {
+              //5. 关闭连接
+              if(statement!=null){
+                  try {
+                      statement.close();
+                  } catch (SQLException e) {
+                      e.printStackTrace();
+                  }
+              }
+
+              if(connection!=null){
+                  try {
+                      connection.close();
+                  } catch (SQLException e) {
+                      e.printStackTrace();
+                  }
+              }
+          }
+      }
+    }
+  >>3. 连接方式
+    DriverManager方式
+    public static Connection getConnection() throws SQLException {
+      conn = DriverManager.getConnection(url, username, password);
+      return conn;
+    }
+
+    DataSource方式
+    使用mysql厂商提供的MysqlDatasource
+    public class DataSourceConnection {
+      static Logger log = Logger.getLogger(DataSourceConnection.class);
+
+      //使用jcbc连接mysql
+      public static void main (String[] args){
+          Connection connection=null;
+          Statement statement=null;
+
+          try {
+              MysqlDataSource dataSource = new MysqlDataSource();
+              dataSource.setUrl("jdbc:mysql://localhost:3306/stc");
+              dataSource.setUser("root");
+              dataSource.setPassword("mysql");
+
+              connection= dataSource.getConnection();
+              //3. 创建会话
+              statement = connection.createStatement();
+
+              //4. 执行数据库操作
+              statement.execute("INSERT INTO students (id, name) VALUES (3,'ab')");
+
+          /*} catch (ClassNotFoundException e) {
+              log.error("jdbc drivier not found");
+              e.printStackTrace();
+          */}catch (SQLException e) {
+              log.error("数据库连接失败"+e.getMessage());
+              e.printStackTrace();
+          }finally {
+              //5. 关闭连接
+              if(statement!=null){
+                  try {
+                      statement.close();
+                  } catch (SQLException e) {
+                      e.printStackTrace();
+                  }
+              }
+
+              if(connection!=null){
+                  try {
+                      connection.close();
+                  } catch (SQLException e) {
+                      e.printStackTrace();
+                  }
+              }
+          }
+      }
+    }
+
+    使用c3p0
+
+    使用DBCP
+
+
+  >数据库增删改查
+  >数据库事物
