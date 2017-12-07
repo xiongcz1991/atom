@@ -126,9 +126,176 @@
     }
 
   3.3 使用c3p0
+    public class C3p0Connection {
+        static Logger log = Logger.getLogger(DataSourceConnection.class);
+
+        //使用jcbc连接mysql
+        public static void main (String[] args){
+            Connection connection=null;
+            Statement statement=null;
+
+            try {
+                /*MysqlDataSource dataSource = new MysqlDataSource();
+                dataSource.setUrl("jdbc:mysql://localhost:3306/stc");
+                dataSource.setUser("root");
+                dataSource.setPassword("mysql");*/
+                ComboPooledDataSource dataSource = new ComboPooledDataSource();
+                dataSource.setDriverClass("com.mysql.jdbc.Driver");
+                dataSource.setJdbcUrl("jdbc:mysql://localhost:3306/stc");
+                dataSource.setUser("root");
+                dataSource.setPassword("mysql");
+
+                connection= dataSource.getConnection();
+                //3. 创建会话
+                statement = connection.createStatement();
+
+                //4. 执行数据库操作
+                statement.execute("INSERT INTO students (id, name) VALUES (4,'b')");
+
+            /*} catch (ClassNotFoundException e) {
+                log.error("jdbc drivier not found");
+                e.printStackTrace();
+            */}catch (SQLException e) {
+                log.error("数据库连接失败"+e.getMessage());
+                e.printStackTrace();
+            } catch (PropertyVetoException e) {
+                e.printStackTrace();
+            } finally {
+                //5. 关闭连接
+                if(statement!=null){
+                    try {
+                        statement.close();
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                if(connection!=null){
+                    try {
+                        connection.close();
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
+    }
 
   3.4 使用DBCP
+    public class DBCPConnection {
+        static Logger log = Logger.getLogger(MysqlConnection.class);
 
+        //使用jcbc连接mysql
+        public static void main (String[] args){
+            Connection connection=null;
+            Statement statement=null;
+            try {
+                BasicDataSource dataSource = new BasicDataSource();
+                dataSource.setDriverClassName("com.mysql.jdbc.Driver");
+                dataSource.setUrl("jdbc:mysql://localhost:3306/stc");
+                dataSource.setUsername("root");
+                dataSource.setPassword("mysql");
+
+                connection =dataSource.getConnection();
+                //3. 创建会话
+                statement = connection.createStatement();
+
+                //4. 执行数据库操作
+                statement.execute("INSERT INTO students (id, name) VALUES (5,'c')");
+
+            } /*catch (ClassNotFoundException e) {
+                log.error("jdbc drivier not found");
+                e.printStackTrace();
+            }*/catch (SQLException e) {
+                log.error("数据库连接失败"+e.getMessage());
+                e.printStackTrace();
+            }finally {
+                //5. 关闭连接
+                if(statement!=null){
+                    try {
+                        statement.close();
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                if(connection!=null){
+                    try {
+                        connection.close();
+                    } catch (SQLException e) {
+                        e.printStackTrace();
+                    }
+                }
+            }
+        }
+      }
 
   >数据库增删改查
+    public class StudentDao {
+        Statement statement;
+        Logger logger = Logger.getLogger(Student.class);
+
+        public void insertStudent(Student student){
+            try {
+                String sql = "INSERT into students (id, name) VALUES ("+student.getId()+","+"'"+student.getName()+"'"+")";
+                logger.info(sql);
+                boolean execute = statement.execute(sql);
+                ResultSet resultSet = statement.getResultSet();
+            } catch (SQLException e) {
+                logger.error(e.getMessage());
+                e.printStackTrace();
+            }
+        }
+
+        public void deleteStudentById(int id){
+            String sql = "delete from students where id = "+id;
+            logger.info(sql);
+            try {
+                statement.execute(sql);
+            } catch (SQLException e) {
+                logger.error(e.getMessage());
+                e.printStackTrace();
+            }
+        }
+
+        public void updateStudent(Student student){
+            String sql = "update students set name="+"'"+student.getName()+"'"+"where id="+student.getId();
+            logger.info(sql);
+            try {
+                statement.execute(sql);
+            } catch (SQLException e) {
+                logger.error(e.getMessage());
+                e.printStackTrace();
+            }
+        }
+
+        public ArrayList<Student> queryStudentByid(int id){
+            ArrayList<Student> list = new ArrayList<Student>();
+            String sql = "select * from students where id="+id;
+            logger.info(sql);
+            try {
+                ResultSet resultSet = statement.executeQuery(sql);
+                Student student;
+                while(resultSet.next()){
+                    student = new Student();
+                    student.setId(resultSet.getInt("id"));
+                    student.setName(resultSet.getString("name"));
+                    list.add(student);
+                }
+            } catch (SQLException e) {
+                logger.error(e.getMessage());
+                e.printStackTrace();
+            }
+            return list;
+        }
+
+        public Statement getStatement() {
+            return statement;
+        }
+
+        public void setStatement(Statement statement) {
+            this.statement = statement;
+        }
+    }
+
   >数据库事物
