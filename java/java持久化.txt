@@ -407,3 +407,126 @@
     接口，提供了一系列JDBC特性支持情况的获取方法。比如，通过
     DatabaseMetaData.supportsTransactionIsolationLevel方法可以判断对事务隔离级别的支持
     情况，通过DatabaseMetaData.supportsSavepoints方法可以判断对保存点的支持情况。
+
+第二章 Hibernate
+学习目标
+  >环境搭建
+  1. 导包
+  <dependency>
+    <groupId>org.hibernate</groupId>
+    <artifactId>hibernate-core</artifactId>
+    <version>5.2.10.Final</version>
+  </dependency>
+  2. 创建配置文件
+  --文件名：hibernate.cfg.xml
+  --文件位置：classpath
+  --文件模板
+    <!DOCTYPE hibernate-configuration PUBLIC
+            "-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+            "http://www.hibernate.org/dtd/hibernate-configuration-3.0.dtd">
+    <hibernate-configuration>
+        <session-factory name="foo">
+            <!--database configuration-->
+            <property name="connection.driver_class">com.mysql.jdbc.Driver</property>
+            <property name="connection.url">jdbc:mysql://localhost:3306/stc</property>
+            <property name="connection.username">root</property>
+            <property name="connection.password">mysql</property>
+
+            <!--hibernate setting-->
+            <property name="dialect">org.hibernate.dialect.MySQL57InnoDBDialect</property>
+            <property name="hibernate.hbm2ddl.auto">update</property>
+            <!--<property name="javax.persistence.validation.mode">true</property>-->
+
+            <property name="show_sql">true</property>
+
+            <mapping resource="Student.hbm.xml"></mapping>
+            <!--<mapping resource="org/hibernate/test/legacy/Simple.hbm.xml"/>
+            <class-cache
+                    class="org.hibernate.test.legacy.Simple"
+                    region="Simple"
+                    usage="read-write"/>-->
+        </session-factory>
+    </hibernate-configuration>
+
+  3. 创建model类
+    package com.xiongcz.hibernate.model;
+    public class Student {
+        private int id;
+        private String name;
+        private int age;
+
+        public int getId() {
+            return id;
+        }
+
+        public void setId(int id) {
+            this.id = id;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public int getAge() {
+            return age;
+        }
+
+        public void setAge(int age) {
+            this.age = age;
+        }
+
+        @Override
+        public String toString() {
+            return "Student{" +
+                    "id=" + id +
+                    ", name='" + name + '\'' +
+                    ", age=" + age +
+                    '}';
+        }
+    }
+
+  4. 创建orm映射文件
+  --文件名：Student.hbm.xml
+  --文件位置：在hibernate中配置
+  --文件模板
+      <?xml version="1.0" encoding="utf-8"?>
+      <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+              "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+      <hibernate-mapping package="com.xiongcz.hibernate.model">
+          <class name="Student" table="student">
+              <id name="id" column="id" type="java.lang.Integer">
+                  <generator class="native"></generator>
+              </id>
+              <property name="name" column="name" type="java.lang.String"></property>
+              <property name="age" column="age" type="java.lang.Integer"></property>
+          </class>
+      </hibernate-mapping>
+  5. 测试
+    @Test
+    public void testHibernate(){
+        SessionFactory sessionFactory = HibernateUtils.getSessionFactory();
+        Session session = sessionFactory.openSession();
+        session.save(new Student(1,"xiongcz",21));
+        session.close();
+        sessionFactory.close();
+    }
+  >主键生成策略
+    identity：使用数据库的自动增长策略，不是所有数据库都支持，比如oracle就不支持。
+    sequence：在 DB2，PostgreSQL，Oracle，SAP DB，McKoi 中使用序列（sequence）在使用Oracle数据库时可以使用这一个。
+    hilo:使用高低位算法生成主键值。只需要一张额外表，所有的数据都支持。
+    native:根据底层数据库的能力选择 identity、sequence 或者 hilo中的一个。
+    assigned：手工指定主键值。
+    uuid：由Hibernate自动生成UUID并指定为主键值。
+
+  >映射关系配置
+  --one to one
+  
+  --one to many
+  --many to many
+  >inverse和cascade
+  >集成C3p0
+  >HQL
