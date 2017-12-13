@@ -1,2 +1,30 @@
 Linux版
   >tar版安装
+  --下载文件
+  --解压
+  --移动文件到/usr/local/apps
+  --执行
+     ./bin/msyqld --initialize --user=mysql
+  --把mysql文件夹的权限给root，mysql/data文件夹的权限给mysqlUser
+  --把mysql/support-scripts/mysql-server复制到/etc/init.d/mysql.d
+  --在mysql下新建log/mysql.log目录
+  --修改配置文件
+    [client]
+      default-character-set=utf8
+    [mysqld]
+      character-set-server=utf8
+      datadir=/usr/local/mysqlService/mysql/data
+      basedir=/usr/local/mysqlService/mysql
+      socket=/tmp/mysql.sock
+    [mysqld_safe]
+      log-error=/usr/local/mysqlService/mysql/log/mysqld.log
+  --检查相关目录是否有足够权限 #||
+  --
+  --启动mysql服务
+    service mysqld start
+  --查看服务进程
+    ps -ef | grep mysql
+  --登录mysql
+
+  --跳过密码登录
+    在配置文件的【mysqld】中加上skip-grant-tables，重启mysql
