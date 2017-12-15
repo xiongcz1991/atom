@@ -13,11 +13,11 @@ Linux版
       default-character-set=utf8
     [mysqld]
       character-set-server=utf8
-      datadir=/usr/local/mysqlService/mysql/data
-      basedir=/usr/local/mysqlService/mysql
+      datadir=/usr/local/apps/mysql/data
+      basedir=/usr/local/apps/mysql
       socket=/tmp/mysql.sock
     [mysqld_safe]
-      log-error=/usr/local/mysqlService/mysql/log/mysqld.log
+      log-error=/usr/local/apps/mysql/log/mysqld.log
   --检查相关目录是否有足够权限 #||
   --
   --启动mysql服务
