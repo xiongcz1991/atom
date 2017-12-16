@@ -1,0 +1,20 @@
+redis安装：
+  1. 下载软件包
+    wget http://download.redis.io/releases/redis-2.8.17.tar.gz
+  2. 解压tar.gz软件包
+    tar -zxvf redis-2.8.17.tar.gz
+  3. 移动软件包到/usr/local/apps/redis
+    sudo mv redis-2.8.17 /usr/local/apps/redis
+  4. 切换到/usr/local/apps/redis
+    cd /usr/local/apps/redis
+  5. 编译
+    make
+  6. 添加redis-server到系统服务
+    sudo cp src/redis-server /etc/init.d
+  7. 启动redis
+    service redis
+  8. 链接redis-cli到/usr/bin
+    sudo ln -s redis-cli /usr/bin/redis-cli
+
+redis 配置：
+  
