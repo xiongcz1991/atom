@@ -525,125 +525,125 @@
 
   >映射关系配置
   --单向一对一
-    Student类
-      package com.xiongcz.hibernate.model;
-      public class Student {
-          private int id;
-          private String name;
-          private int age;
-          private SudentCard sudentCard;
+      Student类
+        package com.xiongcz.hibernate.model;
+        public class Student {
+            private int id;
+            private String name;
+            private int age;
+            private SudentCard sudentCard;
 
-          public int getId() {
-              return id;
-          }
+            public int getId() {
+                return id;
+            }
 
-          public void setId(int id) {
-              this.id = id;
-          }
+            public void setId(int id) {
+                this.id = id;
+            }
 
-          public String getName() {
-              return name;
-          }
+            public String getName() {
+                return name;
+            }
 
-          public void setName(String name) {
-              this.name = name;
-          }
+            public void setName(String name) {
+                this.name = name;
+            }
 
-          public int getAge() {
-              return age;
-          }
+            public int getAge() {
+                return age;
+            }
 
-          public void setAge(int age) {
-              this.age = age;
-          }
+            public void setAge(int age) {
+                this.age = age;
+            }
 
-          public SudentCard getSudentCard() {
-              return sudentCard;
-          }
+            public SudentCard getSudentCard() {
+                return sudentCard;
+            }
 
-          public void setSudentCard(SudentCard sudentCard) {
-              this.sudentCard = sudentCard;
-          }
+            public void setSudentCard(SudentCard sudentCard) {
+                this.sudentCard = sudentCard;
+            }
 
-          @Override
-          public String toString() {
-              return "Student{" +
-                      "id=" + id +
-                      ", name='" + name + '\'' +
-                      ", age=" + age +
-                      ", sudentCard=" + sudentCard +
-                      '}';
-          }
-      }
+            @Override
+            public String toString() {
+                return "Student{" +
+                        "id=" + id +
+                        ", name='" + name + '\'' +
+                        ", age=" + age +
+                        ", sudentCard=" + sudentCard +
+                        '}';
+            }
+        }
 
-    SudentCard类
-      package com.xiongcz.hibernate.model;
-      public class SudentCard {
-          private int scid;
-          private float money;
+      SudentCard类
+        package com.xiongcz.hibernate.model;
+        public class SudentCard {
+            private int scid;
+            private float money;
 
-          @Override
-          public String toString() {
-              return "SudentCard{" +
-                      "scid=" + scid +
-                      ", money=" + money +
-                      '}';
-          }
+            @Override
+            public String toString() {
+                return "SudentCard{" +
+                        "scid=" + scid +
+                        ", money=" + money +
+                        '}';
+            }
 
-          public SudentCard(int scid, float money) {
-              this.scid = scid;
-              this.money = money;
-          }
+            public SudentCard(int scid, float money) {
+                this.scid = scid;
+                this.money = money;
+            }
 
-          public SudentCard() {
-          }
+            public SudentCard() {
+            }
 
-          public int getScid() {
-              return scid;
-          }
+            public int getScid() {
+                return scid;
+            }
 
-          public void setScid(int scid) {
-              this.scid = scid;
-          }
+            public void setScid(int scid) {
+                this.scid = scid;
+            }
 
-          public float getMoney() {
-              return money;
-          }
+            public float getMoney() {
+                return money;
+            }
 
-          public void setMoney(float money) {
-              this.money = money;
-          }
-      }
+            public void setMoney(float money) {
+                this.money = money;
+            }
+        }
 
-    Student映射文件
-      <?xml version="1.0" encoding="utf-8"?>
-      <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
-              "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-      <hibernate-mapping package="com.xiongcz.hibernate.model">
-          <class name="Student" table="student">
-              <id name="id">
-                  <generator class="foreign" >
-                      <param name="property">sudentCard</param>
-                  </generator>
-              </id>
-              <property name="name" column="name" type="java.lang.String"></property>
-              <property name="age" column="age" type="java.lang.Integer"></property>
-              <one-to-one name="sudentCard" constrained="true"/>
-          </class>
-      </hibernate-mapping>
+      Student映射文件
+        <?xml version="1.0" encoding="utf-8"?>
+        <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+                "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+        <hibernate-mapping package="com.xiongcz.hibernate.model">
+            <class name="Student" table="student">
+                <id name="id">
+                    <generator class="foreign" >
+                        <param name="property">sudentCard</param>
+                    </generator>
+                </id>
+                <property name="name" column="name" type="java.lang.String"></property>
+                <property name="age" column="age" type="java.lang.Integer"></property>
+                <one-to-one name="sudentCard" constrained="true"/>
+            </class>
+        </hibernate-mapping>
 
-    SudentCard映射文件
-      <?xml version="1.0" encoding="utf-8"?>
-      <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
-              "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
-      <hibernate-mapping package="com.xiongcz.hibernate.model">
-          <class name="SudentCard" table="scard">
-              <id name="scid" column="scid" type="java.lang.Integer">
-                  <generator class="native"></generator>
-              </id>
-              <property name="money" column="money"/>
-          </class>
-      </hibernate-mapping>
+      SudentCard映射文件
+        <?xml version="1.0" encoding="utf-8"?>
+        <!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+                "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+        <hibernate-mapping package="com.xiongcz.hibernate.model">
+            <class name="SudentCard" table="scard">
+                <id name="scid" column="scid" type="java.lang.Integer">
+                    <generator class="native"></generator>
+                </id>
+                <property name="money" column="money"/>
+            </class>
+        </hibernate-mapping>
 
     测试
       @Test
@@ -681,3 +681,13 @@
   >inverse和cascade
   >集成C3p0
   >HQL
+  >反向工程
+    1. 创建hibernate.cfg.xml并完善数据库链接信息
+    2. 创建hibernate反向工程配置文件
+    3. 选择运行hibernate反向工程
+
+  >hibernate配置
+    1. 映射文件配置
+      全局映射元数据配置：
+        schema：schema值作为数据库schema前缀作用于所映射类的所有sql申明
+        default-lazy：配置默认懒加载

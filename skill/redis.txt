@@ -173,3 +173,6 @@ redis 数据类型：
     删：
     改：
     查：
+
+redis 命令列表
+  append key value :

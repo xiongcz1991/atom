@@ -1,0 +1,22 @@
+python 安装：
+  Linux:
+  检查python版本 python
+    [xiongcz@localhost ~]$ python
+    Python 2.7.13 (default, Dec  1 2017, 09:21:53)
+    [GCC 6.4.1 20170727 (Red Hat 6.4.1-1)] on linux2
+    Type "help", "copyright", "credits" or "license" for more information.
+  检查是否安装python3
+    [xiongcz@localhost ~]$ python3
+    Python 3.5.2 (default, Sep 14 2016, 11:28:32)
+    [GCC 6.2.1 20160901 (Red Hat 6.2.1-1)] on linux
+    Type "help", "copyright", "credits" or "license" for more information.
+  windows安装：
+  略
+
+python数据类型和变量
+  数据类型
+
+  变量
+    变量命名：
+      1. 可以是数字、字母、下划线。数字不能打头
+      2. 不要将pythonzu

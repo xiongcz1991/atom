@@ -3,4 +3,10 @@ Linux版安装
   解压软件包
   配置环境变量
   修改mrrors
-  
+
+eclipse开启maven提示功能：
+  1. 打开windows-->preferences-->maven
+  2. 勾选download repository index updates on startup
+  3. 打开windows-->show views-->maven repositorys
+  4. 在maven repository面板中选中global repositorys -->center
+    点击鼠标右键选择rebulid index
