@@ -10,3 +10,151 @@ eclipse开启maven提示功能：
   3. 打开windows-->show views-->maven repositorys
   4. 在maven repository面板中选中global repositorys -->center
     点击鼠标右键选择rebulid index
+
+
+
+===========================================================================
+***************************       maven实战   *****************************
+===========================================================================
+maven简介
+  maven是一个跨平台的项目管理工具，主要用于java平台项目构建、依赖管理、项目信息管理。
+
+Java构建工具
+  IDE
+  Ant
+  maven
+  Make
+
+maven配置
+  全局配置文件
+    conf/setting.xml
+    配置项
+    本地仓库：localRepository
+    交互模式：interactiveMode
+    是否联网：offline
+    插件组
+    代理
+    服务器
+    仓库镜像
+    profile
+    activeProfile
+  用户配置文件
+
+pom.xml文件
+  文档根元素：
+  <project xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://maven.apache.org/POM/4.0.0
+    http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    ...
+  </project>
+
+开始项目
+  1. 生成项目骨架
+    mvn archetype:generate
+        -DgroupId=com.xiongcz
+        -DartifactId=hello
+        -DarchetypeArtifact=maven-quickstart
+        -DinteractiveMode=faclse
+  2. 编写主代码
+    public class App
+    {
+      public void hello()
+      {
+          System.out.println( "Hello World!" );
+      }
+    }
+  3. 编写测试代码
+    public class AppTest
+    {
+            @Test
+            public void testHello(){
+                    App app = new App();
+                    app.hello();
+            }
+    }
+  4. 执行mvn test
+
+maven核心概念
+  1. 插件和目标
+    mvn archetype:create
+        -DgroupId=com.xiongcz
+        -DartifactId=hello
+        -DarchetypeArtifact=quickstart
+    mvn :命令
+    archetype 插件
+    create 目标
+    -DgroupId 参数
+
+  2. 生命周期、阶段、目标
+    生命周期包含一组阶段，每个阶段包含零个或多个目标
+    如：mvn package生命周期
+      阶段：处理资源文件、编译源代码、处理字节码文件、处理测试资源文件、编译测试代码、测试、准备打包、打包
+      目标：Resource：resource、Compiler：compile、Resource：restResource、compiler：testCompiler、
+      test、Jar：jar
+
+  3. 坐标（coordinate）
+    maven坐标四要素：groupId、artifactId、viersion、packaging
+
+  4. maven仓库（Repositories）
+    远程仓库
+    私有仓库
+    本地仓库
+
+  5. maven依赖管理
+    ①.依赖传递
+    ②.依赖范围 （scope）
+      test
+      provided
+  6. 站点生成和报告
+    mvn site
+
+maven应用场景
+  1. 使用archetype插件生成java项目架构
+    mvn archetype:generate
+        -DgroupId=com.xiongcz
+        -DartifactId=hello
+        -DarchetypeArtifact=maven-quickstart
+        -DinteractiveMode=faclse
+
+  2. 定制项目信息
+    ①、添加组织、协议、和开发人员信息
+    <licenses>
+      <license>
+        <name>Apache 2</name>
+        <url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+        <distribution>repo</distribution>
+        <comments>A business-friendly OSS license</comments>
+      </license>
+    </licenses>
+    <organization>
+      <name>Sonatype</name>
+      <url>http://www.sonatype.com</url>
+    </organization>
+    <developers>
+      <developer>
+        <id>jason</id>
+        <name>Jason Van Zyl</name>
+        <email>jason@maven.org</email>
+        <url>http://www.sonatype.com</url>
+        <organization>Sonatype</organization>
+        <organizationUrl>http://www.sonatype.com</organizationUrl>
+        <roles>
+        <role>developer</role>
+        </roles>
+        <timezone>-6</timezone>
+      </developer>
+    </developers>
+
+  3. 添加新依赖
+  4. Exec插件
+    查看Exec插件的信息
+    mvn help：describe -Dplugin=exec -Dfull
+    插件目标
+      exec
+      help
+      java
+  5. dependency
+    插件目标
+      resolve
+      tree

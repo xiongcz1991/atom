@@ -19,4 +19,82 @@ python数据类型和变量
   变量
     变量命名：
       1. 可以是数字、字母、下划线。数字不能打头
-      2. 不要将pythonzu
+      2. 不要将python
+
+  字符串操作
+    字符拼接： str+str1
+    换行付：\n
+    制表符：\t
+    删除空白：rstrip（）、lstrip()、strip()
+    单引号和双引号配合使用避免字符串语法错误
+    python2与python3的print不同
+
+  python数字
+    整数：加（+）、减（-）、乘（*）、除（\）、幂运算（**)
+    浮点数：
+    使用str（）避免类型错误
+    python2中3/2等于1，python中3/2等于1.5
+
+  python注释
+    #注释
+
+python列表
+  概念：由一系列元素按顺序排列，在python中用【】表示列表，用‘，’分隔元素
+    list.py
+      1 #定义一个列表
+      2 bicycles = ["trek","cannordale","redline","specialized"]
+      3 #打印列表
+      4 print(bicycles)
+      5 #访问列表的第一个元素
+      6 print(bicycles[0])
+      7 #使用列表元素
+      8 print(bicycles[1].title())
+      9
+      10 #操作元素
+      11 #1. 修改
+      12 print(bicycles)
+      13 bicycles[0]="treck"
+      14 print(bicycles)
+      15 #2. 添加
+      16 print(bicycles)
+      17 print("在列表末尾添加元素")
+      18 bicycles.append("雷诺")
+      19 print(bicycles)
+      20 print("在列表中间插入元素")
+      21 bicycles.insert(1,"hello")
+      22 print(bicycles)
+      23 #3. 删除
+      24 print(bicycles)
+      25 print("使用del删除元素")
+      26 del bicycles[0]
+      27 print(bicycles)
+      28 print("使用pop删除元素")
+      29 poped_bicycles = bicycles.pop()
+      30 print("poped_bicycles")
+      31 print(poped_bicycles)
+      32 print("bicycles")
+      33 print(bicycles)
+    result:
+      ['trek', 'cannordale', 'redline', 'specialized']
+      trek
+      Cannordale
+      ['trek', 'cannordale', 'redline', 'specialized']
+      ['treck', 'cannordale', 'redline', 'specialized']
+      ['treck', 'cannordale', 'redline', 'specialized']
+      在列表末尾添加元素
+      ['treck', 'cannordale', 'redline', 'specialized', '雷诺']
+      在列表中间插入元素
+      ['treck', 'hello', 'cannordale', 'redline', 'specialized', '雷诺']
+      ['treck', 'hello', 'cannordale', 'redline', 'specialized', '雷诺']
+      使用del删除元素
+      ['hello', 'cannordale', 'redline', 'specialized', '雷诺']
+      使用pop删除元素
+      poped_bicycles
+      雷诺
+      bicycles
+      ['hello', 'cannordale', 'redline', 'specialized']
+
+  列表的增删改和访问
+    增：append（element）、insert（index，element）
+    改：elements【index】=element
+    删：del elements[index]  

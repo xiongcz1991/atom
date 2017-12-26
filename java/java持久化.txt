@@ -688,6 +688,9 @@
 
   >hibernate配置
     1. 映射文件配置
-      全局映射元数据配置：
+      全局xml映射元数据配置：
         schema：schema值作为数据库schema前缀作用于所映射类的所有sql申明
         default-lazy：配置默认懒加载
+        default-access：filed为该配置文件上所有被映射的类的所有持久化属性启用字段访问。
+        aotu-import：
+      全局注解映射元数据配置
